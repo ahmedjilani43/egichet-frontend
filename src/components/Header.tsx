@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 
 export const Header = () => {
   const navigate = useNavigate();
   const [isSticky, setIsSticky] = useState(false);
-    const [cartCount, setCartCount] = useState(0);
-
   const { token, logout } = useAuth();
-
+  const { cartItems, clearCart } = useCart();
+  const cartCount = cartItems.length;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,20 +27,12 @@ export const Header = () => {
     };
   }, []);
 
-    useEffect(() => {
-    const updateCartCount = () => {
-      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-      setCartCount(cartItems.length);
-    };
+  const handleLogout = () => {
+    clearCart();
+    logout();
+  };
 
-    updateCartCount();
 
-    window.addEventListener("storage", updateCartCount);
-
-    return () => {
-      window.removeEventListener("storage", updateCartCount);
-    };
-  }, []);
   return (
     <div className="w-full">
       <div className="bg-gray-100 py-2 px-4">
@@ -60,7 +52,7 @@ export const Header = () => {
               {token ? (
                 <>
                   <button
-                    onClick={() => navigate("/orders")} 
+                    onClick={() => navigate("/profil")}
                     className="relative px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition duration-200 group"
                   >
                     <User className="w-4 h-4 mr-2 inline-block" />
@@ -69,7 +61,7 @@ export const Header = () => {
                   </button>
 
                   <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className="relative px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition duration-200 group"
                   >
                     <UserPlus className="w-4 h-4 mr-2 inline-block" />
@@ -162,7 +154,7 @@ export const Header = () => {
             <Link to="/card">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="w-5 h-5" />
-                 {cartCount > 0 && (
+                {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartCount}
                   </span>

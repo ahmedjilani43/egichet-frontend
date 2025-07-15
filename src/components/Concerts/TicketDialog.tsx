@@ -9,6 +9,7 @@ import { Separator } from "../ui/separator";
 import { Event, TicketType } from "../ConcertsSection";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 interface TicketDialogProps {
   isOpen: boolean;
@@ -33,6 +34,7 @@ export const TicketDialog = ({
 }: TicketDialogProps) => {
   const { token } = useAuth();
   const Navigate = useNavigate()
+  const { addItems } = useCart();
 
   const selectedType = Object.entries(ticketQuantities).find(([_, qty]) => qty > 0)?.[0] || null;
 
@@ -62,56 +64,41 @@ export const TicketDialog = ({
     return Object.values(ticketQuantities).reduce((sum, qty) => sum + qty, 0);
   };
 
+
   const handlePurchase = () => {
     if (!selectedEvent) return;
     if (!token) {
       alert("Please log in to complete the purchase.");
-      Navigate("/signin")
+      Navigate("/signin");
       return;
     }
 
     const newTickets = getTicketTypes(selectedEvent.id).flatMap((ticket) => {
       const qty = ticketQuantities[ticket.id] || 0;
       if (qty === 0) return [];
+
       return {
         id: ticket.id,
-        eventTitle: selectedEvent.title,
-        ticketName: ticket.name,
-        price: `${ticket.price} TND`,
-        quantity: qty,
-        image: selectedEvent.image,
+        title: selectedEvent.title,
         artist: selectedEvent.artist,
         date: selectedEvent.date,
         time: selectedEvent.time,
         venue: selectedEvent.venue,
         location: selectedEvent.location,
-        title: selectedEvent.title,
+        image: selectedEvent.image,
+        price: `${ticket.price} TND`,
+        quantity: qty,
+        category: selectedEvent.category ?? "N/A",
+        rating: selectedEvent.rating ?? "N/A",
+        isHot: selectedEvent.isHot ?? false
       };
     });
 
-    const stored = localStorage.getItem("cartItems");
-    const existingItems = stored ? JSON.parse(stored) : [];
-
-    const mergedItemsMap: Record<string, typeof newTickets[0]> = {};
-
-    existingItems.forEach((item: typeof newTickets[0]) => {
-      mergedItemsMap[item.id] = { ...item };
-    });
-
-    newTickets.forEach((item) => {
-      if (mergedItemsMap[item.id]) {
-        mergedItemsMap[item.id].quantity += item.quantity;
-      } else {
-        mergedItemsMap[item.id] = item;
-      }
-    });
-
-    const mergedItems = Object.values(mergedItemsMap);
-
-    localStorage.setItem("cartItems", JSON.stringify(mergedItems));
+    addItems(newTickets);
     onOpenChange(false);
     window.location.href = "/card";
   };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -171,11 +158,10 @@ export const TicketDialog = ({
                     return (
                       <div
                         key={ticket.id}
-                        className={`border-2 rounded-xl p-6 transition-all duration-300 ${
-                          isDisabled
+                        className={`border-2 rounded-xl p-6 transition-all duration-300 ${isDisabled
                             ? "border-gray-100 opacity-50 pointer-events-none"
                             : "hover:border-purple-200 hover:shadow-lg"
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center justify-between mb-4">
                           <div>
