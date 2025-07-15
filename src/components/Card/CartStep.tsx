@@ -1,37 +1,13 @@
-import { useEffect, useState } from "react";
-import { CartItem } from "./CartItem";
+import { useCart } from "@/contexts/CartContext";
+import { CartItem as CartItemComponent } from "./CartItem";
 import { OrderSummary } from "./OrderSummary";
 import { DiscountCode } from "./DiscountCode";
+import { useState } from "react";
 
 export function CartStep() {
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const { cartItems, updateQuantity, removeItem } = useCart();
   const [discountCode, setDiscountCode] = useState("");
   const [discountError, setDiscountError] = useState("");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("cartItems");
-    if (stored) {
-      setCartItems(JSON.parse(stored));
-    }
-  }, []);
-
-  const updateQuantity = (id: number, change: number) => {
-    const updated = cartItems
-      .map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + change) } : item
-      )
-      .filter((item) => item.quantity > 0);
-    setCartItems(updated);
-    localStorage.setItem("cartItems", JSON.stringify(updated));
-    window.dispatchEvent(new Event("storage"));
-  };
-
-  const removeItem = (id: number) => {
-    const updated = cartItems.filter((item) => item.id !== id);
-    setCartItems(updated);
-    localStorage.setItem("cartItems", JSON.stringify(updated));
-    window.dispatchEvent(new Event("storage"));
-  };
 
   const subtotal = cartItems.reduce((sum, item) => {
     const priceNum = parseFloat(item.price.replace(" TND", ""));
@@ -57,7 +33,7 @@ export function CartStep() {
         </div>
         <div className="divide-y divide-slate-100">
           {cartItems.map((item) => (
-            <CartItem
+            <CartItemComponent
               key={item.id}
               item={item}
               updateQuantity={updateQuantity}
