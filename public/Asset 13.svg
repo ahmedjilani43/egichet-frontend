@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 207.49 76.78">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d1345b;
+        font-family: ANKISHV2Regular, ANKISH-V2;
+        font-size: 28.14px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #d1345b;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <path class="cls-2" d="M206.44,26.87l.05-9.63c.04-8.41-6.81-15.33-15.22-15.37L43.87,1.14l-.03,7-5-.02.03-7-22.29-.11C8.17.96,1.26,7.81,1.21,16.22l-.05,9.6c6.66.03,12.04,5.46,12,12.12s-5.46,12.04-12.12,12l-.05,9.6c-.04,8.41,6.81,15.33,15.22,15.37l22.29.11.03-6.97,5,.02-.03,6.97,147.39.73c8.41.04,15.33-6.81,15.37-15.22l.05-9.57c-6.66-.03-12.04-5.46-12-12.12s5.46-12.04,12.12-12ZM43.6,56.09l-5-.02.06-11.99,5,.02-.06,11.99ZM43.72,32.11l-5-.02.06-11.99,5,.02-.06,11.99Z"/>
+      <text class="cls-1" transform="translate(60.74 49.81) rotate(.57)"><tspan x="0" y="0">SOLD OUT</tspan></text>
+    </g>
+  </g>
+</svg>

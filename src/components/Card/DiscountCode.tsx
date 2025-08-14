@@ -21,24 +21,24 @@ export function DiscountCode({ discountCode, setDiscountCode, discountError, set
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8">
-      <div className="flex items-center gap-4 max-w-md">
+    <div className="bg-white rounded-2xl p-8 mb-8 flex flex-col items-center border-0">
+      <div className="flex items-center gap-4 w-full max-w-md">
         <Input
           placeholder="Code de réduction"
           value={discountCode}
           onChange={(e) => setDiscountCode(e.target.value)}
-          className="flex-1 h-12 border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+          className="flex-1 h-12 border-secondary rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent"
         />
         <Button
           onClick={validateDiscount}
-          variant="outline"
-          className="h-12 px-6 rounded-xl border-slate-300 hover:bg-slate-50 font-medium bg-transparent"
+          className="h-12 px-6 rounded-xl bg-secondary text-white hover:bg-secondary-dark font-medium"
         >
           Valider
         </Button>
+
       </div>
       {discountError && (
-        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between">
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between w-full max-w-md">
           <span className="text-red-700 text-sm">{discountError}</span>
           <button onClick={() => setDiscountError("")} className="text-red-500 hover:text-red-700">
             <X className="w-4 h-4" />

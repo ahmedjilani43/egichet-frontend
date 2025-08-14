@@ -1,4 +1,9 @@
-
+import image1 from '/karim.jpg';
+import image2 from '/nancy.jpg';
+import image3 from '/kaso.jpg';
+import image4 from '/ala.png';
+import image5 from '/ragheb.png';
+import image6 from '/samara.jpg';
 export const allEvents = [
     {
       id: 1,
@@ -8,12 +13,12 @@ export const allEvents = [
       time: "20:00",
       location: "Carthage",
       venue: "Amphithéâtre",
-      image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      image:image1,
       category: "Musique",
       price: "45 TND",
       rating: "4.9", 
       isHot: true,
+      soldout:true,
     },
     {
       id: 2,
@@ -24,11 +29,12 @@ export const allEvents = [
       location: "Tunis",
       venue: "Théâtre Municipal",
       image:
-        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+       image2,
       category: "Danse",
       price: "30 TND",
       rating: "4.9", 
       isHot: true,
+       soldout:false,
     },
     {
       id: 3,
@@ -39,11 +45,12 @@ export const allEvents = [
       location: "Sousse",
       venue: "Plage Corniche",
       image:
-        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+       image3,
       category: "Jazz",
       price: "55 TND",
       rating: "4.9", 
       isHot: true,
+       soldout:false,
     },
     {
       id: 4,
@@ -54,11 +61,12 @@ export const allEvents = [
       location: "Nabeul",
       venue: "Stade Municipal",
       image:
-        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+        image4,
       category: "Rock",
       price: "35 TND",
       rating: "4.9", 
-      isHot: true,
+      isHot: false,
+       soldout:false,
     },
     {
       id: 5,
@@ -69,11 +77,12 @@ export const allEvents = [
       location: "Monastir",
       venue: "Arena Hall",
       image:
-        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+       image5,
       category: "Pop",
       price: "60 TND",
       rating: "4.9", 
-      isHot: true,
+      isHot: false,
+       soldout:false,
     },
     {
       id: 6,
@@ -84,11 +93,12 @@ export const allEvents = [
       location: "Djerba",
       venue: "Beach Stage",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+       image6,
       category: "Électro",
       price: "70 TND",
       rating: "4.9", 
-    isHot: true,
+    isHot: false,
+     soldout:false,
     },
   ];
   

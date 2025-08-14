@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import "tailwindcss";
 
+
 body {
-  background-color: #f9fafb;
+  background-color: white;
   margin: 0;
   padding: 0;
-  height: 100vh; 
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
 #root {
@@ -45,3 +48,12 @@ body {
 .read-the-docs {
   color: #888;
 }
+
+@theme {   --color-primary: #05001B;
+           --color-secondary: #6666FF;
+           --color-third: #71F79F;
+           --color-fourth: #C3423F;
+           --color-fifth: #D1345B;     
+       }
+
+       

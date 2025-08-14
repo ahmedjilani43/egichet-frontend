@@ -1,11 +1,13 @@
-import type React from "react"
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { User, MapPin, Phone, Mail } from "lucide-react"
-import { Input } from "../ui/input"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Mail, Phone } from "lucide-react"
+
+interface InformationStepProps {
+  goNextStep: () => void
+  prevStep?: () => void
+}
 
 interface FormData {
   firstName: string
@@ -15,13 +17,14 @@ interface FormData {
   address: string
   city: string
   postal: string
+  country: string
 }
 
 interface FormErrors {
   [key: string]: string
 }
 
-export function InformationStep() {
+export function InformationStep({ goNextStep }: InformationStepProps) {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -30,6 +33,7 @@ export function InformationStep() {
     address: "",
     city: "",
     postal: "",
+    country: "",
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
@@ -38,13 +42,8 @@ export function InformationStep() {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "Le prénom est requis"
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Le nom est requis"
-    }
+    if (!formData.firstName.trim()) newErrors.firstName = "Le prénom est requis"
+    if (!formData.lastName.trim()) newErrors.lastName = "Le nom est requis"
 
     if (!formData.email.trim()) {
       newErrors.email = "L'email est requis"
@@ -52,23 +51,17 @@ export function InformationStep() {
       newErrors.email = "Format d'email invalide"
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Le téléphone est requis"
-    }
-
-    if (!formData.address.trim()) {
-      newErrors.address = "L'adresse est requise"
-    }
-
-    if (!formData.city.trim()) {
-      newErrors.city = "La ville est requise"
-    }
+    if (!formData.phone.trim()) newErrors.phone = "Le téléphone est requis"
+    if (!formData.address.trim()) newErrors.address = "L'adresse est requise"
+    if (!formData.city.trim()) newErrors.city = "La ville est requise"
 
     if (!formData.postal.trim()) {
       newErrors.postal = "Le code postal est requis"
     } else if (!/^\d{5}$/.test(formData.postal)) {
       newErrors.postal = "Le code postal doit contenir 5 chiffres"
     }
+
+    if (!formData.country.trim()) newErrors.country = "Le pays est requis"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -83,16 +76,13 @@ export function InformationStep() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
-
+    if (!validateForm()) return
     setIsSubmitting(true)
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000))
       console.log("Form submitted:", formData)
+      goNextStep() 
     } catch (error) {
       console.error("Submission error:", error)
     } finally {
@@ -100,236 +90,138 @@ export function InformationStep() {
     }
   }
 
+  const baseInputClass =
+    "border border-secondary rounded-[8px] h-11 px-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all"
+
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
-      <Card className="backdrop-blur-sm bg-white/95 border-0 shadow-2xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50/50 to-fuchsia-50/50 pointer-events-none" />
+    <div className="w-full max-w-4xl mx-auto p-6 rounded-lg shadow-md bg-white">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName" className="text-secondary font-medium text-left">
+              First Name <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="firstName"
+              value={formData.firstName}
+              onChange={(e) => handleInputChange("firstName", e.target.value)}
+              className={`${baseInputClass} ${errors.firstName ? "border-red-500" : ""}`}
+            />
+            {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="lastName" className="text-secondary font-medium text-left">
+              Last Name <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="lastName"
+              value={formData.lastName}
+              onChange={(e) => handleInputChange("lastName", e.target.value)}
+              className={`${baseInputClass} ${errors.lastName ? "border-red-500" : ""}`}
+            />
+            {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
+          </div>
+        </div>
 
-        <CardHeader className="relative pb-8 pt-8">
-          <CardTitle className="flex items-center gap-4 text-3xl font-bold">
-            <div className="p-3 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl text-white shadow-lg">
-              <User className="w-7 h-7" />
-            </div>
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-              Vos informations
-            </span>
-          </CardTitle>
-          <CardDescription className="text-slate-600 text-lg mt-2 ml-16">
-            Renseignez vos informations personnelles et de livraison
-          </CardDescription>
-        </CardHeader>
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-secondary font-medium text-left">
+            Email <span className="text-red-500">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              className={`${baseInputClass} pr-10 ${errors.email ? "border-red-500" : ""}`}
+            />
+            <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-secondary" />
+          </div>
+          {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+        </div>
 
-        <CardContent className="relative">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-gradient-to-br from-violet-100 to-fuchsia-100 rounded-lg">
-                  <User className="w-5 h-5 text-violet-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-800">Informations personnelles</h3>
-              </div>
+        <div className="space-y-2">
+          <Label htmlFor="phone" className="text-secondary font-medium text-left">
+            Phone <span className="text-red-500">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              id="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => handleInputChange("phone", e.target.value)}
+              className={`${baseInputClass} pr-10 ${errors.phone ? "border-red-500" : ""}`}
+            />
+            <Phone className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-secondary" />
+          </div>
+          {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
+        </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-slate-700 font-medium flex items-center gap-2">
-                    Prénom <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-  id="firstName"
-  value={formData.firstName}
-  onChange={(e) => handleInputChange("firstName", e.target.value)}
-  placeholder="Jean"
-  className={`h-12  p-0 border-2 rounded-xl transition-all duration-300 ${
-    errors.firstName
-      ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-      : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-  }`}
-  aria-invalid={!!errors.firstName}
-  aria-describedby={errors.firstName ? "firstName-error" : undefined}
-/>
+        <div className="space-y-2">
+          <Label htmlFor="address" className="text-secondary font-medium text-left">
+            Address <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            id="address"
+            value={formData.address}
+            onChange={(e) => handleInputChange("address", e.target.value)}
+            placeholder="Address"
+            className={`${baseInputClass} ${errors.address ? "border-red-500" : ""}`}
+          />
+          {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
+        </div>
 
-                  {errors.firstName && (
-                    <p id="firstName-error" className="text-sm text-red-600 mt-1">
-                      {errors.firstName}
-                    </p>
-                  )}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="postal" className="text-secondary font-medium text-left">
+              Postal Code <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="postal"
+              value={formData.postal}
+              onChange={(e) => handleInputChange("postal", e.target.value)}
+              placeholder="Postal Code"
+              maxLength={5}
+              className={`${baseInputClass} ${errors.postal ? "border-red-500" : ""}`}
+            />
+            {errors.postal && <p className="text-sm text-red-500">{errors.postal}</p>}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="country" className="text-secondary font-medium text-left">
+              Country <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="country"
+              value={formData.country}
+              onChange={(e) => handleInputChange("country", e.target.value)}
+              placeholder="Country"
+              className={`${baseInputClass} ${errors.country ? "border-red-500" : ""}`}
+            />
+            {errors.country && <p className="text-sm text-red-500">{errors.country}</p>}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="city" className="text-secondary font-medium text-left">
+              City <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="city"
+              value={formData.city}
+              onChange={(e) => handleInputChange("city", e.target.value)}
+              placeholder="City"
+              className={`${baseInputClass} ${errors.city ? "border-red-500" : ""}`}
+            />
+            {errors.city && <p className="text-sm text-red-500">{errors.city}</p>}
+          </div>
+        </div>
 
-                <div className="">
-                  <Label htmlFor="lastName" className="text-slate-700 font-medium flex items-center gap-2">
-                    Nom <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => handleInputChange("lastName", e.target.value)}
-                    placeholder="Dupont"
-                    className={`h-12 border-2 rounded-xl transition-all duration-300 ${
-                      errors.lastName
-                        ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                        : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                    }`}
-                    aria-invalid={!!errors.lastName}
-                    aria-describedby={errors.lastName ? "lastName-error" : undefined}
-                  />
-                  {errors.lastName && (
-                    <p id="lastName-error" className="text-sm text-red-600 mt-1">
-                      {errors.lastName}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-700 font-medium flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Email <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="jean.dupont@email.com"
-                  className={`h-12 border-2 rounded-xl transition-all duration-300 ${
-                    errors.email
-                      ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                      : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                  }`}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-sm text-red-600 mt-1">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-slate-700 font-medium flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  Téléphone <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
-                  placeholder="+33 1 23 45 67 89"
-                  className={`h-12 border-2 rounded-xl transition-all duration-300 ${
-                    errors.phone
-                      ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                      : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                  }`}
-                  aria-invalid={!!errors.phone}
-                  aria-describedby={errors.phone ? "phone-error" : undefined}
-                />
-                {errors.phone && (
-                  <p id="phone-error" className="text-sm text-red-600 mt-1">
-                    {errors.phone}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Delivery Address Section */}
-            <div className="space-y-6 pt-6 border-t border-slate-200">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-gradient-to-br from-violet-100 to-fuchsia-100 rounded-lg">
-                  <MapPin className="w-5 h-5 text-violet-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-800">Adresse de livraison</h3>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="address" className="text-slate-700 font-medium flex items-center gap-2">
-                  Adresse <span className="text-red-500">*</span>
-                </Label>
-                <Textarea
-                  id="address"
-                  value={formData.address}
-                  onChange={(e) => handleInputChange("address", e.target.value)}
-                  placeholder="123 Rue de la Paix"
-                  className={`min-h-[100px] border-2 rounded-xl transition-all duration-300 resize-none ${
-                    errors.address
-                      ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                      : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                  }`}
-                  aria-invalid={!!errors.address}
-                  aria-describedby={errors.address ? "address-error" : undefined}
-                />
-                {errors.address && (
-                  <p id="address-error" className="text-sm text-red-600 mt-1">
-                    {errors.address}
-                  </p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="city" className="text-slate-700 font-medium flex items-center gap-2">
-                    Ville <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="city"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                    placeholder="Paris"
-                    className={`h-12 border-2 rounded-xl transition-all duration-300 ${
-                      errors.city
-                        ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                        : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                    }`}
-                    aria-invalid={!!errors.city}
-                    aria-describedby={errors.city ? "city-error" : undefined}
-                  />
-                  {errors.city && (
-                    <p id="city-error" className="text-sm text-red-600 mt-1">
-                      {errors.city}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="postal" className="text-slate-700 font-medium flex items-center gap-2">
-                    Code postal <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="postal"
-                    value={formData.postal}
-                    onChange={(e) => handleInputChange("postal", e.target.value)}
-                    placeholder="75001"
-                    maxLength={5}
-                    className={`h-12 border-2 rounded-xl transition-all duration-300 ${
-                      errors.postal
-                        ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                        : "border-slate-200 focus:border-violet-500 focus:ring-violet-200"
-                    }`}
-                    aria-invalid={!!errors.postal}
-                    aria-describedby={errors.postal ? "postal-error" : undefined}
-                  />
-                  {errors.postal && (
-                    <p id="postal-error" className="text-sm text-red-600 mt-1">
-                      {errors.postal}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-slate-200">
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full h-12 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? "Validation en cours..." : "Valider les informations"}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-secondary hover:bg-secondary/90 text-white font-medium py-3 rounded-[8px]"
+        >
+          {isSubmitting ? "Validation en cours..." : "Continue to Payment"}
+        </Button>
+      </form>
     </div>
   )
 }

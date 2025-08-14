@@ -1,12 +1,13 @@
 import * as React from "react";
 import { allEvents } from "./eventData";
-import { EventSearch } from "./Concerts/EventSearch";
 import { CategoryFilter } from "./Concerts/CategoryFilter";
 import { EventList } from "./Concerts/EventList";
 import { TicketDialog } from "./Concerts/TicketDialog";
 import { EventHeader } from "./Concerts/EventHeader";
+import { HotEvents } from "./Concerts/HotEvents";
 
 export interface Event {
+  soldout: any;
   id: number;
   title: string;
   artist: string;
@@ -30,10 +31,12 @@ export interface TicketType {
 }
 
 export const ConcertsSection = () => {
-  const categories = ["All", "Musique", "Danse", "Jazz", "Rock", "Pop", "Électro"];
+  const categories = ["FESTIVALS", "CLUBBING", "SHOWS", "EXPERIENCES", "SPORTS"];
 
   const getTicketTypes = (eventId: number): TicketType[] => {
-    const basePrice = Number.parseInt(allEvents.find((e) => e.id === eventId)?.price.replace(" TND", "") || "50");
+    const basePrice = Number.parseInt(
+      allEvents.find((e) => e.id === eventId)?.price.replace(" TND", "") || "50"
+    );
     return [
       {
         id: "general",
@@ -89,37 +92,67 @@ export const ConcertsSection = () => {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-purple-50/30 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <EventHeader />
-        <div className="mb-12">
-          <div className="max-w-4xl mx-auto">
-            <EventSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <CategoryFilter
-              categories={categories}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />
-          </div>
-        </div>
-        <EventList
+    <section className="min-h-screen bg-white font-poppins">
+      <EventHeader />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <HotEvents
           filteredEvents={filteredEvents}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           setSelectedCategory={setSelectedCategory}
           onGetTickets={handleGetTickets}
         />
-        <TicketDialog
-          isOpen={isDialogOpen}
-          onOpenChange={setIsDialogOpen}
-          selectedEvent={selectedEvent}
-          ticketQuantities={ticketQuantities}
-          setTicketQuantities={setTicketQuantities}
-          customerInfo={customerInfo}
-          setCustomerInfo={setCustomerInfo}
-          getTicketTypes={getTicketTypes}
+      </div>
+
+      <div className="my-12 border-t-1 border-secondary w-full"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div className="max-w-4xl mx-auto">
+          <CategoryFilter
+            categories={categories}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+        </div>
+      </div>
+
+      <h2 className="text-[34px] font-semibold uppercase text-[var(--color-primary)] text-center mb-12 font-poppins">
+        FESTIVAL INTERNATIONAL DE HAMMAMET
+      </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <EventList
+          filteredEvents={filteredEvents.filter((event) => event.rating)}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setSelectedCategory={setSelectedCategory}
+          onGetTickets={handleGetTickets}
         />
       </div>
+
+      <h2 className="text-[34px] font-semibold uppercase text-[var(--color-primary)] text-center mb-12 font-poppins">
+        FESTIVAL INTERNATIONAL DE CARTHAGE
+      </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <EventList
+          filteredEvents={filteredEvents.filter((event) => event.rating)}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setSelectedCategory={setSelectedCategory}
+          onGetTickets={handleGetTickets}
+        />
+      </div>
+
+      <TicketDialog
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        selectedEvent={selectedEvent}
+        ticketQuantities={ticketQuantities}
+        setTicketQuantities={setTicketQuantities}
+        customerInfo={customerInfo}
+        setCustomerInfo={setCustomerInfo}
+        getTicketTypes={getTicketTypes}
+      />
     </section>
   );
 };

@@ -19,7 +19,7 @@ export const EventSearch = ({ searchTerm, setSearchTerm }: EventSearchProps) => 
         placeholder="Search events, artists, or locations..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full pl-12 pr-12 py-4 text-lg border-0 rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg shadow-purple-500/10 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:shadow-xl focus:shadow-purple-500/20 transition-all duration-300 placeholder:text-gray-400"
+        className="w-full pl-12 pr-12 py-4 text-lg border-0 rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg shadow-purple-500/10 focus:outline-none focus:ring-2 focus:ring-secondary focus:shadow-xl focus:shadow-purple-500/20 transition-all duration-300 placeholder:text-gray-400"
       />
       {searchTerm && (
         <button

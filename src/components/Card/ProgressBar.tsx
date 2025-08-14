@@ -18,7 +18,7 @@ export function ProgressBar({ currentStep, steps }: ProgressBarProps) {
       <div className="flex items-center justify-between relative px-8">
         <div className="absolute top-8 left-8 right-8 h-1 bg-gradient-to-r from-slate-200 to-slate-300 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 rounded-full shadow-lg"
+            className="h-full bg-secondary rounded-full shadow-lg"
             style={{
               width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
               boxShadow: "0 0 20px rgba(139, 92, 246, 0.5)",

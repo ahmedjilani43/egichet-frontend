@@ -1,47 +1,46 @@
+"use client"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ShoppingCart, User, CreditCard, ChevronLeft, ChevronRight } from "lucide-react"
-import { ProgressBar } from "./ProgressBar"
+import { ShoppingCart, User, CreditCard, Check } from "lucide-react"
+import { useAuth } from "@/contexts/AuthContext"
+import { useNavigate } from "react-router-dom"
 import { CartStep } from "./CartStep"
 import { InformationStep } from "./InformationStep"
 import { PaymentStep } from "./PaymentStep"
-import { useAuth } from "@/contexts/AuthContext"
-import { useNavigate } from "react-router-dom"
 
 const steps = [
   {
     id: 1,
-    title: "Votre panier",
+    title: "Votre Panier",
+    subtitle: "vérifier vos événements",
     icon: ShoppingCart,
-    description: "Vérifiez vos événements",
   },
   {
     id: 2,
-    title: "Vos informations",
+    title: "Vos Informations",
+    subtitle: "Informations personnelles",
     icon: User,
-    description: "Informations personnelles",
   },
   {
     id: 3,
     title: "Paiement",
+    subtitle: "Finaliser la Commande",
     icon: CreditCard,
-    description: "Finaliser la commande",
   },
 ]
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1)
-  const {token} =useAuth();
-  const navigate = useNavigate();
+  const { token } = useAuth()
+  const navigate = useNavigate()
 
   const nextStep = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
     }
     if (!token) {
-      alert("Please log in to complete the purchase.");
+      alert("Please log in to complete the purchase.")
       navigate("/signin")
-      return;
+      return
     }
   }
 
@@ -54,53 +53,107 @@ export default function MultiStepForm() {
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <CartStep />
+        return (
+          <CartStep
+            prevStep={prevStep}
+            nextStep={nextStep}
+            currentStep={currentStep}
+            totalSteps={steps.length}
+          />
+        )
       case 2:
-        return <InformationStep />
+        return (
+          <InformationStep
+            goNextStep={() => setCurrentStep(3)}
+            prevStep={prevStep}
+          />
+        )
       case 3:
         return <PaymentStep />
       default:
-        return <CartStep />
+        return (
+          <CartStep
+            prevStep={prevStep}
+            nextStep={nextStep}
+            currentStep={currentStep}
+            totalSteps={steps.length}
+          />
+        )
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50 to-fuchsia-50 py-12 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-violet-400/20 to-fuchsia-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-fuchsia-400/20 to-violet-400/20 rounded-full blur-3xl"></div>
+    <div className="min-h-screen">
+      <div className="relative h-48 w-full overflow-hidden">
+        <img
+          src="/f1.png"
+          alt="Card header background"
+          className="object-cover w-full h-full absolute inset-0"
+        />
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white">
+          <h1 className="text-4xl font-bold mb-2">CARD</h1>
+          <p className="text-lg opacity-90">You can view and check your card here</p>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <ProgressBar currentStep={currentStep} steps={steps} />
-
-        <div className="mb-12 animate-in slide-in-from-bottom-4 duration-500">{renderStepContent()}</div>
-
-        <div className="flex justify-between max-w-4xl mx-auto">
-          <Button
-            variant="outline"
-            onClick={prevStep}
-            disabled={currentStep === 1}
-            className="flex items-center gap-2 h-12 px-8 rounded-xl border-slate-300 bg-white/80 backdrop-blur-sm hover:bg-white hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            Précédent
-          </Button>
-
-          {currentStep === steps.length ? (
-            <Button className="h-12 px-8 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              Finaliser la commande
-            </Button>
-          ) : (
-            <Button
-              onClick={nextStep}
-              className="flex items-center gap-2 h-12 px-8 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            >
-              Suivant
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          )}
+      <div className="bg-white py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex items-center justify-between relative">
+            {steps.map((step, index) => {
+              const isCompleted = currentStep > step.id
+              const isCurrent = currentStep === step.id
+              const isPrevious = currentStep > step.id
+              return (
+                <div key={step.id} className="flex items-center relative z-10">
+                  <div className="flex flex-col items-center">
+                    <div
+                      className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all
+                        ${isPrevious || isCompleted
+                          ? "border-secondary bg-secondary text-white"
+                          : isCurrent
+                            ? "border-secondary text-secondary bg-white"
+                            : "border-gray-300 text-gray-400 bg-white"
+                        }
+                      `}
+                    >
+                      {isPrevious || isCompleted ? (
+                        <Check className="w-6 h-6" />
+                      ) : (
+                        <span className="text-sm font-semibold">{step.id}</span>
+                      )}
+                    </div>
+                    <div className="mt-3 text-center">
+                      <h3
+                        className={`text-sm font-medium ${isCurrent || isPrevious || isCompleted
+                            ? "text-secondary"
+                            : "text-gray-500"
+                          }`}
+                      >
+                        {step.title}
+                      </h3>
+                      <p className="text-xs text-gray-400 mt-1">{step.subtitle}</p>
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className="absolute top-6 left-12 w-full h-0.5 -z-10">
+                      <div
+                        className={`h-full transition-all duration-300 ${isPrevious || isCompleted ? "bg-secondary" : "bg-gray-300"
+                          }`}
+                        style={{
+                          width: `calc(100vw / ${steps.length} - 3rem)`,
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </div>
+      </div>
+
+      <div className="mb-12 animate-in slide-in-from-bottom-4 duration-500 max-w-7xl mx-auto px-4">
+        {renderStepContent()}
       </div>
     </div>
   )

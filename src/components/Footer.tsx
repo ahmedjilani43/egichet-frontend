@@ -1,237 +1,89 @@
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import React from "react"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Youtube,
-  Mail,
-  Phone,
-  MapPin,
-  Ticket,
-} from "lucide-react"
-
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear()
-
   return (
-    <footer className="w-full bg-gray-900 text-white">
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <Ticket className="h-8 w-8 text-blue-500" />
-              <h3 className="text-2xl font-bold">E-GUICHET.tn</h3>
+    <footer className="bg-secondary text-white py-8 px-6">
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-6">
+          <div className="flex justify-center mt-16 text-sm font-bold">
+            <img src="/icon white.png" alt="E-Ticket Icon" className="h-30 w-auto object-contain" />
+          </div>
+          <div className="mb-3 text-sm text-left">
+            <div className="space-y-2 text-sm text-left">
+              <p className="font-bold">Qui sommes-nous ?</p>
+              <p>E-Ticket est votre partenaire pour</p>
+              <p>réserver et vivre les meilleurs</p>
+              <p>événements en Tunisie.</p>
+              <p className="font-semibold mt-3">Comment ça marche ?</p>
+              <p>Service client disponible 7/7,</p>
+              <p>24h sur 24h</p>
+              <p>contact@eticket.tn</p>
+              <p>Tunis, Tunisie</p>
             </div>
-            <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-              Your gateway to unforgettable experiences. Find and book tickets
-              for the best events in your city with ease and confidence.
-            </p>
+            <div className="flex space-x-3 mt-4 ">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600">
+                <Facebook className="w-6 h-6" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400">
+                <Twitter className="w-6 h-6" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-500">
+                <Instagram className="w-6 h-6" />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-700">
+                <Linkedin className="w-6 h-6" />
+              </a>
+            </div>
 
-            {/* Social Media Links */}
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-blue-500 transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-blue-400 transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-pink-500 transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-blue-600 transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-red-500 transition-colors"
-              >
-                <Youtube className="h-5 w-5" />
-                <span className="sr-only">YouTube</span>
-              </a>
-            </div>
           </div>
 
-          {/* Company Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/about"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/terms"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Terms And Conditions
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/press"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Press & Media
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blog"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/partners"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Partners
-                </Link>
-              </li>
+          <div className="font-semibold mt-6">
+            <h3 className="font-bold mb-3 text-xm text-left">À propos</h3>
+            <ul className="space-y-2 text-sm text-left">
+              <li><a href="/terms" className="hover:text-gray-300">Termes et conditions</a></li>
+              <li><a href="#" className="hover:text-gray-300">La liste de nos partenaires</a></li>
+              <li><a href="signin" className="hover:text-gray-300">Se connecter</a></li>
+              <li><a href="/signup" className="hover:text-gray-300">Créer un compte</a></li>
+              <li><a href="#" className="hover:text-gray-300">Contactez nous</a></li>
             </ul>
           </div>
 
-          {/* Support Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Support</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/help"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/faq"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/refunds"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Refund Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/organizers"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  For Organizers
-                </Link>
-              </li>
+          <div className="font-semibold mt-6">
+            <h3 className="font-bold mb-3 text-xm text-left">Pages</h3>
+            <ul className="space-y-1 text-sm text-left">
+              <li><a href="#" className="hover:text-gray-300 font-semibold">About Us</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Publier vos événements</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Suivez vos ventes</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Connexion organisateur</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Services</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Contact Us</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Blog</a></li>
             </ul>
           </div>
 
-          {/* Newsletter & Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Stay Connected</h4>
+          <div className="font-semibold mt-6">
+            <h3 className="font-bold mb-3 text-xm text-left">Espace Pro</h3>
+            <ul className="space-y-1 text-sm text-left">
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Publier vos événements</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Suivez vos ventes</a></li>
+              <li><a href="#" className="hover:text-gray-300 font-semibold">Connexion organisateur</a></li>
+            </ul>
+          </div>
 
-            <div className="mb-6">
-              <p className="text-gray-300 text-sm mb-3">
-                Subscribe to get the latest events and exclusive offers
-              </p>
-              <form className="space-y-3">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-blue-500"
-                />
-                <Button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Subscribe
-                </Button>
-              </form>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-gray-300">
-                <Mail className="h-4 w-4 text-blue-500" />
-                <span>support@e-guichet.tn</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-300">
-                <Phone className="h-4 w-4 text-blue-500" />
-                <span>+216 XX XXX XXX</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-300">
-                <MapPin className="h-4 w-4 text-blue-500" />
-                <span>Tunis, Tunisia</span>
-              </div>
-            </div>
+          <div className="font-semibold mt-6">
+            <h3 className="font-bold mb-3 text-xm text-left">Catégories</h3>
+            <ul className="space-y-1 text-sm text-left">
+              <li><a href="#" className="hover:text-gray-300">Festival International de Carthage</a></li>
+              <li><a href="#" className="hover:text-gray-300">Festivals</a></li>
+              <li><a href="#" className="hover:text-gray-300">Les rencontres où on jam</a></li>
+              <li><a href="#" className="hover:text-gray-300">Festival Electronique</a></li>
+              <li><a href="#" className="hover:text-gray-300">Clubbing</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-
-      <Separator className="bg-gray-700" />
-
-      {/* Bottom Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400 text-center md:text-left">
-            © {currentYear} E-GUICHET.tn. All rights reserved.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
-            <Link to="/privacy-policy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-white transition-colors">
-              Terms & Conditions
-            </Link>
-            <Link to="/cookies" className="hover:text-white transition-colors">
-              Cookie Policy
-            </Link>
-            <Link to="/accessibility" className="hover:text-white transition-colors">
-              Accessibility
-            </Link>
-          </div>
+        <div className="my-4 border-t border-primary w-full"></div>
+        <div className="border-t border-secondary pt-4 text-center text-xs">
+          <p>© 2025 E-Ticket. All rights reserved.</p>
         </div>
       </div>
     </footer>
