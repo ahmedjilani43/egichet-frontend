@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/Card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ChevronUp, FileText, ArrowLeft, Link } from "lucide-react"
 
@@ -59,45 +59,43 @@ const TermsAndConditions = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
 
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-9">
-<div className="hidden lg:block w-96 flex-shrink-0"> 
-  <Card className="sticky top-24 border-0 shadow-none bg-transparent">
-    <CardContent className="p-8">
-      <h2 className="font-semibold text-gray-900 mb-6 text-xl">Table des matières</h2> 
-      <ScrollArea className="h-[24rem]"> 
-        <nav className="space-y-3">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className={`w-full text-left px-4 py-3 rounded-md text-base transition-colors ${
-                activeSection === section.id
-                  ? "bg-blue-100 text-blue-700 font-semibold"
-                  : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              {section.title}
-            </button>
-          ))}
-        </nav>
-      </ScrollArea>
-    </CardContent>
-  </Card>
-</div>
+          <div className="hidden lg:block w-96 flex-shrink-0">
+            <Card className="sticky top-24 border-0 shadow-none bg-transparent">
+              <CardContent className="p-8">
+                <h2 className="font-semibold text-primary mb-6 text-xl">Table des matières</h2>
+                <ScrollArea className="h-[24rem]">
+                  <nav className="space-y-3">
+                    {sections.map((section) => (
+                      <button
+                        key={section.id}
+                        onClick={() => scrollToSection(section.id)}
+                        className={`w-full text-left px-4 py-3 rounded-md text-base transition-colors ${activeSection === section.id
+                            ? "bg-blue-100 text-secondary font-semibold"
+                            : "text-gray-700 hover:text-primary hover:bg-gray-100"
+                          }`}
+                      >
+                        {section.title}
+                      </button>
+                    ))}
+                  </nav>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
 
 
-          {/* Main Content */}
           <div className="flex-1 max-w-4xl">
             <Card className="border-0 shadow-none">
               <CardContent className="p-8 lg:p-12">
                 <div className="prose prose-gray max-w-none">
-                  <h1 className="text-3xl font-bold mb-8 text-gray-900">Termes et Conditions de Vente</h1>
+                  <h1 className="text-3xl font-bold mb-8 text-primary">Termes et Conditions de Vente</h1>
 
                   <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
-                    <p className="text-blue-800">
+                    <p className="text-secondary">
                       Les présentes conditions de vente régissent l'utilisation de la billetterie en ligne fournie par
                       Tunisie Billet (ci-après dénommée "le Vendeur"). En utilisant la billetterie en ligne, vous
                       acceptez d'être lié par ces conditions de vente. Veuillez les lire attentivement avant d'effectuer
@@ -106,7 +104,7 @@ const TermsAndConditions = () => {
                   </div>
 
                   <section id="generalites" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">1. Généralités</h2>
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">1. Généralités</h2>
                     <p className="mb-4 text-gray-700 leading-relaxed">
                       Les présentes conditions de vente régissent l'utilisation de la billetterie en ligne fournie par
                       Tunisie Billet, ci-après dénommée "le Vendeur". En utilisant la billetterie en ligne, vous
@@ -116,7 +114,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="commandes" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">2. Commandes</h2>
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">2. Commandes</h2>
 
                     <div className="space-y-6">
                       <div>
@@ -152,7 +150,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="prix-paiement" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       3. Prix et paiement
                     </h2>
 
@@ -164,8 +162,8 @@ const TermsAndConditions = () => {
                           sauf indication contraire. Le Vendeur se réserve le droit de modifier les prix à tout moment,
                           mais les modifications n'affecteront pas les commandes déjà confirmées.
                         </p>
-                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                          <p className="text-amber-800">
+                        <div className="bg-third border-third rounded-lg p-4">
+                          <p className="text-primary">
                             <strong>Frais de service :</strong> Une commission de 1.5 Dt est appliquée à tous les
                             tickets vendus sur notre site, elle correspond aux frais de service de notre prestataire
                             informatique et nous permet de maintenir le service, de résoudre les problèmes techniques
@@ -182,7 +180,7 @@ const TermsAndConditions = () => {
                           paiement sont traitées de manière sécurisée et confidentielle.
                         </p>
                         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                          <p className="text-red-800">
+                          <p className="text-fourth">
                             <strong>Paiement en espèce :</strong> Le mode de paiement en espèce est soumis à deux
                             conditions importantes : (1) La commande à payer en espèce reste valide 4h seulement, sinon
                             elle est automatiquement annulée. (2) La commande reste valide sous réserve de stock
@@ -194,7 +192,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="livraison" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       4. Livraison des billets
                     </h2>
 
@@ -221,7 +219,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="annulations" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       5. Annulations et remboursements
                     </h2>
 
@@ -256,7 +254,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="responsabilite" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">6. Responsabilité</h2>
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">6. Responsabilité</h2>
                     <p className="mb-4 text-gray-700 leading-relaxed">
                       Le Vendeur décline toute responsabilité en cas de perte, de dommage ou de blessure découlant de
                       l'utilisation des billets ou de l'assistance à l'événement. Il est de votre responsabilité de
@@ -265,7 +263,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="donnees" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       7. Protection des données personnelles
                     </h2>
                     <p className="mb-4 text-gray-700 leading-relaxed">
@@ -276,7 +274,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="modifications" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       8. Modifications des conditions de vente
                     </h2>
                     <p className="mb-4 text-gray-700 leading-relaxed">
@@ -288,7 +286,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <section id="juridiction" className="mb-12">
-                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-gray-900 border-b pb-2">
+                    <h2 className="text-2xl font-semibold mt-8 mb-6 text-primary border-b pb-2">
                       9. Droit applicable et juridiction compétente
                     </h2>
                     <p className="mb-4 text-gray-700 leading-relaxed">
@@ -299,7 +297,7 @@ const TermsAndConditions = () => {
                   </section>
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-12">
-                    <p className="text-blue-800 font-medium">
+                    <p className="text-secondary font-medium">
                       En passant commande, vous reconnaissez avoir lu, compris et accepté ces conditions de vente. Si
                       vous avez des questions, veuillez contacter notre service clientèle.
                     </p>

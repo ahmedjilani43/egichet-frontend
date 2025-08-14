@@ -35,8 +35,10 @@ const App = () => (
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/upcomingEvent" element={<EventSection showAllByDefault />} />
                 <Route path="/card" element={<Card />} />
-                <Route path="/sms-verification" element={<SMSVerification />} />
-              </Route>
+                <Route path="/sms-verification" element={<SMSVerification onBack={function (): void {
+                  throw new Error("Function not implemented.");
+                }} />} />
+              </Route> 
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CartProvider>

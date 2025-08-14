@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent } from "./ui/Card";
 import { Button } from "./ui/button";
 import { MapPin, Calendar } from "lucide-react";
 import { Badge } from "./ui/badge";
@@ -45,7 +45,7 @@ export const EventSection= ({ showAllByDefault = false }: EventSectionProps) => 
                 <Badge variant="secondary" className="mb-2 text-xs">
                   {event.category}
                 </Badge>
-                <h3 className="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors line-clamp-2">
+                <h3 className="font-bold text-gray-900 mb-1 group-hover:text-secondary transition-colors line-clamp-2">
                   {event.title}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">{event.artist}</p>
@@ -64,11 +64,11 @@ export const EventSection= ({ showAllByDefault = false }: EventSectionProps) => 
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-purple-600">{event.price}</span>
+                  <span className="font-bold text-secondary">{event.price}</span>
                   <Button
                     size="sm"
                     variant="outline"
-                    className="bg-white/80 hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200"
+                    className="bg-white/80 hover:bg-secondary/100 hover:text-secondary hover:border-white"
                   >
                     Book Now
                   </Button>

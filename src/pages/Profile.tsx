@@ -1,6 +1,6 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Package, Lock, User, MapPin, Clock } from "lucide-react";
 import PasswordChangeForm from "@/components/profile/PasswordChange";
 import EmailChangeForm from "@/components/profile/EmailChangeForm";
@@ -75,7 +75,7 @@ const Profil = () => {
               <Card className="bg-white/95 backdrop-blur-sm shadow-xl border-0 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-third rounded-xl flex items-center justify-center">
                       <Clock className="h-6 w-6 text-white" />
                     </div>
                     <div>

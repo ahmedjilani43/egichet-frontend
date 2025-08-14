@@ -3,21 +3,10 @@ import { Sparkles } from "lucide-react";
 
 export const EventHeader = () => {
   return (
-    <div className="text-center mb-12">
-      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
-        <Sparkles className="w-6 h-6 text-purple-600" />
-        <span className="text-sm font-semibold uppercase tracking-wider">Live Events</span>
+      <div className="py-4 bg-third " >
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-center text-white text-emphasize uppercase tracking-wider">HOT NOW</h2>
+        </div>
       </div>
-      <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 leading-tight">
-        Discover Amazing
-        <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          {" "}
-          Events
-        </span>
-      </h1>
-      <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-        Find and book tickets for the hottest concerts, festivals, and live performances in Tunisia
-      </p>
-    </div>
   );
 };

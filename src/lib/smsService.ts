@@ -21,7 +21,6 @@ export const sendSMSVerification = async (phoneNumber: string): Promise<boolean>
 
 export const verifyOTP = async (phoneNumber: string, otp: string): Promise<boolean> => {
   try {
-    // Replace with your actual OTP verification service
     const response = await fetch("/api/verify-otp", {
       method: "POST",
       headers: {
