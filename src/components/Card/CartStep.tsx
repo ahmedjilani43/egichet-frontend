@@ -27,9 +27,9 @@ export function CartStep({ prevStep, nextStep, currentStep, totalSteps }: CartSt
   const shipping = 0
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-        <div className="grid grid-cols-12 gap-4 px-8 py-4 bg-slate-50 border-b border-slate-200 text-sm font-semibold text-slate-600 uppercase tracking-wide">
+     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="bg-white rounded-lg sm:rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-4 sm:mb-8">
+        <div className="hidden sm:grid grid-cols-12 gap-4 px-4 sm:px-8 py-4 bg-slate-50 border-b border-slate-200 text-sm font-semibold text-slate-600 uppercase tracking-wide">
           <div className="col-span-5 text-left">Événement</div>
           <div className="col-span-2 text-left">Prix</div>
           <div className="col-span-2 text-left">Nombre de billets</div>
@@ -48,17 +48,16 @@ export function CartStep({ prevStep, nextStep, currentStep, totalSteps }: CartSt
             setDiscountError={setDiscountError}
           />
         </div>
-        <Separator className="border-t border-gray-300" />
 
         <OrderSummary subtotal={subtotal} shipping={shipping} />
       </div>
 
-      <div className="flex gap-10 p-6 justify-center mt-6">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-10 p-4 sm:p-6 justify-center mt-4 sm:mt-6">
         <Button
           variant="outline"
           onClick={prevStep}
           disabled={currentStep === 1}
-          className="bg-transparent border-slate-300 text-gray-600 hover:bg-gray-100 w-[356px] h-[45px] rounded-[16px]"
+          className="bg-transparent border-slate-300 text-gray-600 hover:bg-gray-100 w-full sm:w-[356px] h-[45px] rounded-lg sm:rounded-[16px]"
         >
           Cancel
         </Button>
@@ -66,14 +65,14 @@ export function CartStep({ prevStep, nextStep, currentStep, totalSteps }: CartSt
         {currentStep === totalSteps ? (
           <Button
             variant="outline"
-            className="bg-transparent border-slate-300 text-gray-600 hover:bg-gray-100 w-[356px] h-[50px] rounded-[16px]"
+            className="bg-transparent border-slate-300 text-gray-600 hover:bg-gray-100 w-full sm:w-[356px] h-[50px] rounded-lg sm:rounded-[16px]"
           >
             Finaliser la commande
           </Button>
         ) : (
           <Button
             onClick={nextStep}
-            className="bg-secondary hover:bg-secondary text-font-inter text-white w-[356px] h-[45px] rounded-[16px]"
+            className="bg-secondary hover:bg-secondary text-font-inter text-white w-full sm:w-[356px] h-[45px] rounded-lg sm:rounded-[16px]"
           >
             Check Out
             <ChevronRight className="w-5 h-5 ml-2" />

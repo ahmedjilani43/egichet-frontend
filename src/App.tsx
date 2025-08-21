@@ -15,6 +15,7 @@ import Card from "./pages/Card";
 import SMSVerification from "./pages/SMSVerification";
 import Profil from "./pages/Profile";
 import { CartProvider } from "./contexts/CartContext";
+import EventPage from "./pages/Event";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/terms" element={<Conditions />} />
                 <Route path="/profil" element={<Profil />} />
+                <Route path="/event/:id" element={<EventPage />} />
                 <Route path="/upcomingEvent" element={<EventSection showAllByDefault />} />
                 <Route path="/card" element={<Card />} />
                 <Route path="/sms-verification" element={<SMSVerification onBack={function (): void {

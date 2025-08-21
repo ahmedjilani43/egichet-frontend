@@ -1,11 +1,10 @@
-"use client"
 import { useState } from "react"
 import { ShoppingCart, User, CreditCard, Check } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { CartStep } from "./CartStep"
 import { InformationStep } from "./InformationStep"
-import { PaymentStep } from "./PaymentStep"
+import PaymentStep from "./PaymentStep"
 
 const steps = [
   {
@@ -83,7 +82,7 @@ export default function MultiStepForm() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       <div className="relative h-48 w-full overflow-hidden">
         <img
           src="/f1.png"
@@ -96,7 +95,7 @@ export default function MultiStepForm() {
         </div>
       </div>
 
-      <div className="bg-white py-8">
+      <div className="bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex items-center justify-between relative">
             {steps.map((step, index) => {
@@ -125,8 +124,8 @@ export default function MultiStepForm() {
                     <div className="mt-3 text-center">
                       <h3
                         className={`text-sm font-medium ${isCurrent || isPrevious || isCompleted
-                            ? "text-secondary"
-                            : "text-gray-500"
+                          ? "text-secondary"
+                          : "text-gray-500"
                           }`}
                       >
                         {step.title}
