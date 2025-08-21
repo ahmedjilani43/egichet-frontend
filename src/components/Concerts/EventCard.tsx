@@ -1,15 +1,23 @@
 import { Card, CardContent } from "../ui/Card";
 import { Button } from "../ui/button";
 import { Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Event } from "../ConcertsSection";
 
 interface EventCardProps {
   event: Event;
-  onGetTickets: (event: Event) => void;
+  onGetTickets?: (event: Event) => void;
   isHot?: boolean;
 }
 
-export const EventCard = ({ event, onGetTickets, isHot = false }: EventCardProps) => {
+export const EventCard = ({ event,  isHot = false }: EventCardProps) => {
+  const navigate = useNavigate();
+
+   const handleGetTickets = () => {
+    localStorage.setItem("selectedEvent", JSON.stringify(event));
+    navigate(`/event/${event.id}?openDialog=true`);
+  };
+
   return (
     <Card className="overflow-hidden border-0 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
       <div className="relative">
@@ -22,7 +30,6 @@ export const EventCard = ({ event, onGetTickets, isHot = false }: EventCardProps
       <CardContent className="p-4 text-left">
         <h3 className="text-lg font-semibold text-primary mb-1 flex items-center gap-2 line-clamp-2">
           {event.title}
-
           {event.soldout ? (
             <img 
               src="/Asset 13.svg" 
@@ -44,7 +51,6 @@ export const EventCard = ({ event, onGetTickets, isHot = false }: EventCardProps
             )
           )}
         </h3>
-
         <p className="text-sm text-secondary hover:bg-secondary/10 mb-2 text-left">
           {event.artist}
         </p>
@@ -63,8 +69,8 @@ export const EventCard = ({ event, onGetTickets, isHot = false }: EventCardProps
           size="sm"
           variant="outline"
           className="w-full mt-4 bg-white hover:bg-white hover:text-secondary hover:border-white text-left"
-          onClick={() => onGetTickets(event)}
-          disabled={event.soldout} 
+          onClick={handleGetTickets}
+          disabled={event.soldout}
         >
           {event.soldout ? "Sold Out" : "Get Tickets"}
         </Button>

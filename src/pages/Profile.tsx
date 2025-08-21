@@ -1,131 +1,102 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/Card";
-import { Package, Lock, User, MapPin, Clock } from "lucide-react";
+import { Package, Lock, User } from "lucide-react";
 import PasswordChangeForm from "@/components/profile/PasswordChange";
-import EmailChangeForm from "@/components/profile/EmailChangeForm";
 import ProfileSection from "@/components/profile/ProfileSection";
+import { Button } from "@/components/ui/button";
+import EmailChangeForm from "@/components/profile/EmailChangeForm";
 
 const Profil = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700">
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">Espace Client</h1>
-          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
-            Consulter vos commandes, mettez à jour vos informations personnelles et accédez à tous vos services
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-6 sm:py-12">
+      <div className="w-full max-w-6xl">
+        <Tabs defaultValue="connexion" className="w-full">
+          <div className="shadow-lg sm:shadow-2xl rounded-xl sm:rounded-2xl overflow-hidden">
+            <div className="bg-secondary">
+              <div className="px-4 sm:px-6 py-6 sm:py-8 text-center">
+                <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Espace Client</h1>
+                <p className="text-blue-100 text-sm sm:text-lg max-w-2xl mx-auto">
+                  Consulter vos commandes, mettez à jour vos informations personnelles et accédez à tous vos services
+                </p>
+              </div>
 
-        <Tabs defaultValue="connexion" className="w-full space-y-8">
-          <TabsList className="grid w-full grid-cols-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl h-[52px]">
-            <TabsTrigger
-              value="commandes"
-              className="flex items-center justify-center gap-3 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-lg text-white/90 hover:text-white transition-all duration-300 rounded-xl font-semibold h-full"
-            >
-              <Package size={20} />
-              <span className="hidden sm:inline">MES COMMANDES</span>
-              <span className="sm:hidden">COMMANDES</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="connexion"
-              className="flex items-center justify-center gap-3 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-lg text-white/90 hover:text-white transition-all duration-300 rounded-xl font-semibold h-full"
-            >
-              <Lock size={20} />
-              <span className="hidden sm:inline">DONNÉES DE CONNEXION</span>
-              <span className="sm:hidden">CONNEXION</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="profil"
-              className="flex items-center justify-center gap-3 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-lg text-white/90 hover:text-white transition-all duration-300 rounded-xl font-semibold h-full"
-            >
-              <User size={20} />
-              <span>PROFIL</span>
-            </TabsTrigger>
-          </TabsList>
+              <TabsList className="grid w-full grid-cols-3 bg-secondary h-[60px] sm:h-[89px]">
+                <TabsTrigger
+                  value="commandes"
+                  className="flex flex-col items-center justify-center gap-0 sm:gap-1 data-[state=active]:bg-blue-100 data-[state=active]:text-secondary text-white hover:text-white transition-all duration-300 font-semibold h-full py-1 sm:py-2"
+                >
+                  <Package size={16} className="sm:size-5" />
+                  <span className="hidden sm:inline text-xs sm:text-sm">MES COMMANDES</span>
+                  <span className="sm:hidden text-[10px]">COMMANDES</span>
+                </TabsTrigger>
 
-          <TabsContent value="commandes" className="space-y-8 ">
-            <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0 rounded-3xl overflow-hidden">
-              <CardContent className="p-12">
-                <div className="text-center py-16">
-                  <div className="relative mb-8">
-                    <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full mx-auto flex items-center justify-center shadow-lg">
-                      <Package className="h-16 w-16 text-blue-600" />
+                <TabsTrigger
+                  value="connexion"
+                  className="flex flex-col items-center justify-center gap-0 sm:gap-1 data-[state=active]:bg-blue-100 data-[state=active]:text-secondary text-white hover:text-white transition-all duration-300 font-semibold h-full py-1 sm:py-2"
+                >
+                  <Lock size={16} className="sm:size-5" />
+                  <span className="hidden sm:inline text-xs sm:text-sm">DONNÉES DE CONNEXION</span>
+                  <span className="sm:hidden text-[10px]">CONNEXION</span>
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="profil"
+                  className="flex flex-col items-center justify-center gap-0 sm:gap-1 data-[state=active]:bg-blue-100 data-[state=active]:text-secondary text-white hover:text-white transition-all duration-300 font-semibold h-full py-1 sm:py-2"
+                >
+                  <User size={16} className="sm:size-5" />
+                  <span className="text-xs sm:text-sm">PROFIL</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            <div className="bg-white p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
+              <TabsContent value="commandes" className="space-y-6 sm:space-y-8">
+                <div className="bg-white flex items-center justify-center p-2 sm:p-4">
+                  <div className="max-w-md w-full text-center space-y-4 sm:space-y-6">
+                    <div className="flex justify-center mb-4 sm:mb-8">
+                      <img
+                        src="/mg.png"
+                        alt="3D geometric shapes illustration"
+                        width={300}
+                        height={200}
+                        className="rounded-xl sm:rounded-2xl w-[200px] sm:w-[300px]"
+                      />
                     </div>
-                    <div className="absolute -top-2 -right-8 w-6 h-6 bg-blue-600 rounded-full animate-pulse"></div>
-                    <div className="absolute -bottom-4 -left-6 w-4 h-4 bg-blue-400 rounded-full animate-pulse delay-300"></div>
-                  </div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">Aucune commande pour le moment</h3>
-                  <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto leading-relaxed">
-                    Vous n'avez pas encore passé de commande. Découvrez nos événements exceptionnels et réservez vos places dès maintenant.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Découvrir nos événements
-                    </button>
-                    <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-2xl font-semibold transition-all duration-300">
-                      Voir les promotions
-                    </button>
+
+                    <h1 className="text-lg sm:text-xl font-medium text-blue-600 mb-1 sm:mb-2">Aucune commande pour le moment</h1>
+
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed px-2 sm:px-4">
+                      Vous n'avez aucune commande en cours pour le moment. Découvrez nos événements exceptionnels et réservez vos
+                      places dès maintenant
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-3 sm:pt-4 justify-center">
+                      <Button className="bg-secondary text-white font-medium py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-secondary/90 text-xs sm:text-sm">
+                        Découvrir nos événements
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        className="border-secondary text-secondary font-medium py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-secondary/10 text-xs sm:text-sm"
+                      >
+                        Découvrir nos promotions
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </TabsContent>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="bg-white/95 backdrop-blur-sm shadow-xl border-0 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-third rounded-xl flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">0</p>
-                      <p className="text-gray-600 font-medium">Commandes en cours</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <TabsContent value="connexion" className="space-y-6 sm:space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+                  <PasswordChangeForm />
+                  <EmailChangeForm /> 
+                </div>
+              </TabsContent>
 
-              <Card className="bg-white/95 backdrop-blur-sm shadow-xl border-0 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
-                      <Package className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">0</p>
-                      <p className="text-gray-600 font-medium">Total commandes</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/95 backdrop-blur-sm shadow-xl border-0 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">0</p>
-                      <p className="text-gray-600 font-medium">Événements suivis</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <TabsContent value="profil" className="space-y-6 sm:space-y-8">
+                <ProfileSection />
+              </TabsContent>
             </div>
-          </TabsContent>
-
-          <TabsContent value="connexion" className="space-y-8">
-            <div className="grid lg:grid-cols-2 gap-8">
-              <PasswordChangeForm />
-              <EmailChangeForm />
-            </div>
-          </TabsContent>
-
-          <TabsContent value="profil" className="space-y-8">
-            <ProfileSection />
-          </TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>

@@ -23,7 +23,7 @@ export const HeroSection = () => {
           Discover events happening near you
         </p>
 
-        <div className="relative mx-auto w-full max-w-lg">
+        <div className="relative mx-auto w-full max-w-7xl">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary w-4 h-4 sm:w-5 sm:h-5" />
           <Input
             placeholder="Search for events"
